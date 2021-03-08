@@ -45,6 +45,7 @@ public class Sphere : MonoBehaviour
         {
             GetItem = true;
             Destroy(Item);
+            SceneManager.LoadScene("EndingScene");
         }
     }
 }

@@ -10,6 +10,8 @@ public class Sphere : MonoBehaviour
     bool normalSize = true;
     public GameObject Item;
     bool GetItem = false;
+    public GameObject normal;
+    public GameObject big;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,12 +26,14 @@ public class Sphere : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Z)&&normalSize)
         {
-            this.transform.localScale = new Vector3(2, 2, 2);
+            normal.SetActive(false);
+            big.SetActive(true);
             normalSize = false;
         }
         if(Input.GetKeyDown(KeyCode.X)&&!normalSize)
         {
-            this.transform.localScale = new Vector3(1, 1, 1);
+            normal.SetActive(true);
+            big.SetActive(false);
             normalSize = true;
         }
 
@@ -46,6 +50,10 @@ public class Sphere : MonoBehaviour
             GetItem = true;
             Destroy(Item);
             SceneManager.LoadScene("EndingScene");
+        }
+        if(other.tag=="DeadItem"&&!normalSize)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

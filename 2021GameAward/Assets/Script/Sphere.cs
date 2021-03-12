@@ -15,7 +15,7 @@ public class Sphere : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); 
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -23,8 +23,8 @@ public class Sphere : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal") * speed;
         rb.AddForce(x, 0, 0);
-
-        if(Input.GetKeyDown(KeyCode.Z)&&normalSize)
+        this.transform.rotation = Quaternion.Euler(0, 0, 0);
+        if (Input.GetKeyDown(KeyCode.Z)&&normalSize)
         {
             normal.SetActive(false);
             big.SetActive(true);
@@ -49,11 +49,15 @@ public class Sphere : MonoBehaviour
         {
             GetItem = true;
             Destroy(Item);
-            SceneManager.LoadScene("EndingScene");
+            //SceneManager.LoadScene("EndingScene");
         }
-        if(other.tag=="DeadItem"&&!normalSize)
+        if(other.tag=="DeadItem"&&!GetItem)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        if(other.tag=="Goal"&&GetItem)
+        {
+            SceneManager.LoadScene("EndingScene");
         }
     }
 }

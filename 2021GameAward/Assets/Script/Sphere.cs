@@ -61,7 +61,7 @@ public class Sphere : MonoBehaviour
             Destroy(Item);
             //SceneManager.LoadScene("EndingScene");
         }
-        if(other.tag=="DeadItem"&&!GetItem)
+        if(other.tag=="DeadItem"&&!GetItem&&!normalSize)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

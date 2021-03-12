@@ -25,14 +25,16 @@ public class Sphere : MonoBehaviour
         float x = Input.GetAxis("Horizontal") * speed;
         rb.AddForce(x, 0, 0);
         this.transform.rotation = Quaternion.Euler(0, 0, 0);
-        if (Input.GetKeyDown(KeyCode.Z)&&normalSize)
+        if (Input.GetKeyDown(KeyCode.Z)&&normalSize||
+            Input.GetKeyDown("joystick button 0")&&normalSize)
         {
             normal.SetActive(false);
             big.SetActive(true);
             normalSize = false;
             over.transform.localScale = new Vector3(2.1f, 2.1f, 1);
         }
-        if(Input.GetKeyDown(KeyCode.X)&&!normalSize)
+        if(Input.GetKeyDown(KeyCode.X)&&!normalSize||
+           Input.GetKeyDown("joystick button 1")&& !normalSize)
         {
             normal.SetActive(true);
             big.SetActive(false);
@@ -40,7 +42,7 @@ public class Sphere : MonoBehaviour
             over.transform.localScale = new Vector3(1.1f, 1.1f, 1);
         }
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.R)|| Input.GetKeyDown("joystick button 7"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

@@ -12,6 +12,7 @@ public class Sphere : MonoBehaviour
     bool GetItem = false;
     public GameObject normal;
     public GameObject big;
+    public GameObject over;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,17 +30,26 @@ public class Sphere : MonoBehaviour
             normal.SetActive(false);
             big.SetActive(true);
             normalSize = false;
+            over.transform.localScale = new Vector3(2.1f, 2.1f, 1);
         }
         if(Input.GetKeyDown(KeyCode.X)&&!normalSize)
         {
             normal.SetActive(true);
             big.SetActive(false);
             normalSize = true;
+            over.transform.localScale = new Vector3(1.1f, 1.1f, 1);
         }
 
         if(Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if(GetItem)
+        {
+            //GetComponent<Renderer>().material.color = Color.yellow;
+            normal.GetComponent<Renderer>().material.color = Color.yellow;
+            big.GetComponent<Renderer>().material.color = Color.yellow;
         }
     }
 

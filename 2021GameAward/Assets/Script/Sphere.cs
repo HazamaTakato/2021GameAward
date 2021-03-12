@@ -32,17 +32,21 @@ public class Sphere : MonoBehaviour
             big.SetActive(true);
             normalSize = false;
             over.transform.localScale = new Vector3(2.1f, 2.1f, 1);
+            over.transform.localPosition = new Vector3(over.transform.localPosition.x - 0.5f, over.transform.localPosition.y, over.transform.localPosition.z);
+            big.transform.localPosition = new Vector3(big.transform.localPosition.x - 0.5f, big.transform.localPosition.y, big.transform.localPosition.z);
         }
-        if(Input.GetKeyDown(KeyCode.X)&&!normalSize||
-           Input.GetKeyDown("joystick button 1")&& !normalSize)
+        if(Input.GetKeyDown(KeyCode.X)&&!normalSize&&!GetItem||
+           Input.GetKeyDown("joystick button 1")&& !normalSize&&!GetItem)
         {
             normal.SetActive(true);
             big.SetActive(false);
             normalSize = true;
             over.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+            over.transform.localPosition = new Vector3(over.transform.localPosition.x + 0.5f, over.transform.localPosition.y, over.transform.localPosition.z);
+            big.transform.localPosition = new Vector3(big.transform.localPosition.x + 0.5f, big.transform.localPosition.y, big.transform.localPosition.z);
         }
 
-        if(Input.GetKeyDown(KeyCode.R)|| Input.GetKeyDown("joystick button 7"))
+        if (Input.GetKeyDown(KeyCode.R)|| Input.GetKeyDown("joystick button 7"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

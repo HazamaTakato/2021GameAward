@@ -7,16 +7,16 @@ public class Sphere : MonoBehaviour
 {
     public float speed = 1.0f;
     public Rigidbody rb;
-    bool normalSize = true;
     public GameObject Item;
     bool GetItem = false;
-    public GameObject normal;
-    public GameObject big;
     public GameObject over;
+    public GameObject normal;
+    Vector3 addcutSize;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        addcutSize = new Vector3(0.1f, 0.1f, 0);
     }
 
     // Update is called once per frame
@@ -25,25 +25,20 @@ public class Sphere : MonoBehaviour
         float x = Input.GetAxis("Horizontal") * speed;
         rb.AddForce(x, 0, 0);
         this.transform.rotation = Quaternion.Euler(0, 0, 0);
-        if (Input.GetKeyDown(KeyCode.Z)&&normalSize||
-            Input.GetKeyDown("joystick button 0")&&normalSize)
+        if (Input.GetKeyDown(KeyCode.Z)||
+            Input.GetKeyDown("joystick button 0"))
         {
-            normal.SetActive(false);
-            big.SetActive(true);
-            normalSize = false;
-            over.transform.localScale = new Vector3(2.1f, 2.1f, 1);
-            over.transform.localPosition = new Vector3(over.transform.localPosition.x - 0.5f, over.transform.localPosition.y, over.transform.localPosition.z);
-            big.transform.localPosition = new Vector3(big.transform.localPosition.x - 0.5f, big.transform.localPosition.y, big.transform.localPosition.z);
+            normal.transform.localScale = normal.transform.localScale + addcutSize;
+            over.transform.localScale = over.transform.localScale + addcutSize;
         }
-        if(Input.GetKeyDown(KeyCode.X)&&!normalSize&&!GetItem||
-           Input.GetKeyDown("joystick button 1")&& !normalSize&&!GetItem)
+        if(Input.GetKeyDown(KeyCode.X)&&!GetItem||
+           Input.GetKeyDown("joystick button 1")&& !GetItem)
         {
-            normal.SetActive(true);
-            big.SetActive(false);
-            normalSize = true;
-            over.transform.localScale = new Vector3(1.1f, 1.1f, 1);
-            over.transform.localPosition = new Vector3(over.transform.localPosition.x + 0.5f, over.transform.localPosition.y, over.transform.localPosition.z);
-            big.transform.localPosition = new Vector3(big.transform.localPosition.x + 0.5f, big.transform.localPosition.y, big.transform.localPosition.z);
+            if (normal.transform.localScale.x >= 1.1)
+            {
+                normal.transform.localScale = normal.transform.localScale - addcutSize;
+                over.transform.localScale = over.transform.localScale - addcutSize;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.R)|| Input.GetKeyDown("joystick button 7"))
@@ -53,21 +48,18 @@ public class Sphere : MonoBehaviour
 
         if(GetItem)
         {
-            //GetComponent<Renderer>().material.color = Color.yellow;
-            normal.GetComponent<Renderer>().material.color = Color.yellow;
-            big.GetComponent<Renderer>().material.color = Color.yellow;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Item"&&!normalSize)
+        if (other.tag == "Item")
         {
             GetItem = true;
             Destroy(Item);
             //SceneManager.LoadScene("EndingScene");
         }
-        if(other.tag=="DeadItem"&&!GetItem&&!normalSize)
+        if(other.tag=="DeadItem"&&!GetItem)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

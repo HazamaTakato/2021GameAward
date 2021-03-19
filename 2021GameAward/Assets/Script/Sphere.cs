@@ -8,7 +8,7 @@ public class Sphere : MonoBehaviour
     public float speed = 1.0f;
     public Rigidbody rb;
     public GameObject Item;
-    bool GetItem = false;
+    public bool GetItem = false;
     public GameObject over;
     public GameObject normal;
     Vector3 addcutSize;
@@ -16,7 +16,7 @@ public class Sphere : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        addcutSize = new Vector3(0.1f, 0.1f, 0);
+        addcutSize = new Vector3(0.01f, 0.01f, 0);
     }
 
     // Update is called once per frame
@@ -25,14 +25,17 @@ public class Sphere : MonoBehaviour
         float x = Input.GetAxis("Horizontal") * speed;
         rb.AddForce(x, 0, 0);
         this.transform.rotation = Quaternion.Euler(0, 0, 0);
-        if (Input.GetKeyDown(KeyCode.Z)||
-            Input.GetKeyDown("joystick button 0"))
+        if (Input.GetKey(KeyCode.Z)||
+            Input.GetKey("joystick button 0"))
         {
-            normal.transform.localScale = normal.transform.localScale + addcutSize;
-            over.transform.localScale = over.transform.localScale + addcutSize;
+            if (normal.transform.localScale.x <= 2.6)
+            {
+                normal.transform.localScale = normal.transform.localScale + addcutSize;
+                over.transform.localScale = over.transform.localScale + addcutSize;
+            }
         }
-        if(Input.GetKeyDown(KeyCode.X)&&!GetItem||
-           Input.GetKeyDown("joystick button 1")&& !GetItem)
+        if(Input.GetKey(KeyCode.X)||
+           Input.GetKey("joystick button 1"))
         {
             if (normal.transform.localScale.x >= 1.1)
             {
@@ -56,8 +59,6 @@ public class Sphere : MonoBehaviour
         if (other.tag == "Item")
         {
             GetItem = true;
-            Destroy(Item);
-            //SceneManager.LoadScene("EndingScene");
         }
         if(other.tag=="DeadItem"&&!GetItem)
         {

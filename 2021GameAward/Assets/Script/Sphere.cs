@@ -12,6 +12,7 @@ public class Sphere : MonoBehaviour
     public GameObject over;
     public GameObject normal;
     Vector3 addcutSize;
+    public bool hitflag;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,7 @@ public class Sphere : MonoBehaviour
         if (Input.GetKey(KeyCode.Z)||
             Input.GetKey("joystick button 0"))
         {
-            if (normal.transform.localScale.x <= 2.6)
+            if (normal.transform.localScale.x <= 2.6f)
             {
                 normal.transform.localScale = normal.transform.localScale + addcutSize;
                 over.transform.localScale = over.transform.localScale + addcutSize;
@@ -37,7 +38,7 @@ public class Sphere : MonoBehaviour
         if(Input.GetKey(KeyCode.X)||
            Input.GetKey("joystick button 1"))
         {
-            if (normal.transform.localScale.x >= 1.1)
+            if (normal.transform.localScale.x >= 1.00f)
             {
                 normal.transform.localScale = normal.transform.localScale - addcutSize;
                 over.transform.localScale = over.transform.localScale - addcutSize;
@@ -51,19 +52,36 @@ public class Sphere : MonoBehaviour
 
         if(GetItem)
         {
+            Item.SetActive(false);
+        }
+
+        if(Input.GetKeyDown(KeyCode.C)&&GetItem)
+        {
+            GetItem = false;
+            Item.SetActive(true);
+            Item.transform.position = this.transform.position;
+        }
+        if (normal.transform.localScale.x <= 1)
+        {
+            hitflag = true;
+        }
+        else
+        {
+            hitflag = false;
+            GetItem = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Item")
+        if (other.tag == "Item"&&hitflag)
         {
             GetItem = true;
         }
-        if(other.tag=="DeadItem"&&!GetItem)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        //if(other.tag=="DeadItem"&&!GetItem)
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //}
         if(other.tag=="Goal"&&GetItem)
         {
             SceneManager.LoadScene("EndingScene");

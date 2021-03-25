@@ -12,12 +12,16 @@ public class Sphere : MonoBehaviour
     public GameObject over;
     public GameObject normal;
     Vector3 addcutSize;
+    Vector3 downaddcutSize;
     public bool hitflag;
+    public bool changeSize;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         addcutSize = new Vector3(0.01f, 0.01f, 0);
+        downaddcutSize = new Vector3(0.1f, 0.1f, 0);
+        changeSize = false;
     }
 
     // Update is called once per frame
@@ -35,6 +39,14 @@ public class Sphere : MonoBehaviour
                 over.transform.localScale = over.transform.localScale + addcutSize;
             }
         }
+        if(Input.GetKeyDown(KeyCode.C)&&!changeSize)
+        {
+            if (normal.transform.localScale.x <= 2.6f)
+            {
+                normal.transform.localScale = normal.transform.localScale + downaddcutSize;
+                over.transform.localScale = over.transform.localScale + downaddcutSize;
+            }
+        }
         if(Input.GetKey(KeyCode.X)||
            Input.GetKey("joystick button 1"))
         {
@@ -42,6 +54,14 @@ public class Sphere : MonoBehaviour
             {
                 normal.transform.localScale = normal.transform.localScale - addcutSize;
                 over.transform.localScale = over.transform.localScale - addcutSize;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.V)&&!changeSize)
+        {
+            if (normal.transform.localScale.x >= 1.00f)
+            {
+                normal.transform.localScale = normal.transform.localScale - downaddcutSize;
+                over.transform.localScale = over.transform.localScale - downaddcutSize;
             }
         }
 

@@ -110,7 +110,7 @@ public class Sphere : MonoBehaviour
         //}
         if(other.tag=="Goal"&&GetItem)
         {
-            SceneManager.LoadScene("EndingScene");
+            SceneManager.LoadScene("GameScene2");
         }
     }
 }

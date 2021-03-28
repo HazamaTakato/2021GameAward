@@ -8,7 +8,7 @@ public class Sphere : MonoBehaviour
     public float speed = 1.0f;
     public Rigidbody rb;
     public GameObject Item;
-    public bool GetItem = false;
+    public bool GetItem;
     public GameObject over;
     public GameObject normal;
     Vector3 addcutSize;
@@ -22,6 +22,7 @@ public class Sphere : MonoBehaviour
         addcutSize = new Vector3(0.01f, 0.01f, 0);
         downaddcutSize = new Vector3(0.1f, 0.1f, 0);
         changeSize = false;
+        GetItem = false;
     }
 
     // Update is called once per frame
@@ -70,34 +71,39 @@ public class Sphere : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        if(GetItem)
+        if(Input.GetKeyDown(KeyCode.I))
         {
-            Item.SetActive(false);
+            GetItem = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.C)&&GetItem)
-        {
-            GetItem = false;
-            Item.SetActive(true);
-            Item.transform.position = this.transform.position;
-        }
-        if (normal.transform.localScale.x <= 1)
-        {
-            hitflag = true;
-        }
-        else
-        {
-            hitflag = false;
-            GetItem = false;
-        }
+        //if(GetItem)
+        //{
+        //    Item.SetActive(false);
+        //}
+
+        //if(Input.GetKeyDown(KeyCode.C)&&GetItem)
+        //{
+        //    GetItem = false;
+        //    Item.SetActive(true);
+        //    Item.transform.position = this.transform.position;
+        //}
+        //if (normal.transform.localScale.x <= 1)
+        //{
+        //    hitflag = true;
+        //}
+        //else
+        //{
+        //    hitflag = false;
+        //    GetItem = false;
+        //}
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Item"&&hitflag)
-        {
-            GetItem = true;
-        }
+        //if (other.tag == "Item"&&hitflag)
+        //{
+        //    GetItem = true;
+        //}
         //if(other.tag=="DeadItem"&&!GetItem)
         //{
         //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);

@@ -24,7 +24,7 @@ public class Sphere : MonoBehaviour
         downaddcutSize = new Vector3(0.1f, 0.1f, 0);
         changeSize = false;
         GetItem = false;
-        changeGauge.value = 1;
+        changeGauge.value = 100;
     }
 
     // Update is called once per frame
@@ -36,46 +36,66 @@ public class Sphere : MonoBehaviour
         if (Input.GetKey(KeyCode.Z)||
             Input.GetKey("joystick button 0"))
         {
+            changeSize = true;
             if (changeGauge.value > 0)
             {
                 if (normal.transform.localScale.x <= 2.6f)
                 {
                     normal.transform.localScale = normal.transform.localScale + addcutSize;
                     over.transform.localScale = over.transform.localScale + addcutSize;
-                    changeGauge.value -= 0.01f;
+                    //changeGauge.value -= 0.01f;
                 }
             }
         }
-        if(Input.GetKeyDown(KeyCode.C)&&!changeSize)
+        if(Input.GetKeyDown(KeyCode.C))
         {
+            changeSize = true;
             if (changeGauge.value > 0)
             {
                 if (normal.transform.localScale.x <= 2.6f)
                 {
                     normal.transform.localScale = normal.transform.localScale + downaddcutSize;
                     over.transform.localScale = over.transform.localScale + downaddcutSize;
-                    changeGauge.value -= 0.1f;
+                    //changeGauge.value -= 0.1f;
                 }
             }
         }
         if(Input.GetKey(KeyCode.X)||
            Input.GetKey("joystick button 1"))
         {
+            changeSize = false;
             if (normal.transform.localScale.x >= 1.00f)
             {
                 normal.transform.localScale = normal.transform.localScale - addcutSize;
                 over.transform.localScale = over.transform.localScale - addcutSize;
-                changeGauge.value += 0.01f;
+                //changeGauge.value += 0.01f;
             }
         }
-        if (Input.GetKeyDown(KeyCode.V)&&!changeSize)
+        if (Input.GetKeyDown(KeyCode.V))
         {
+            changeSize = false;
             if (normal.transform.localScale.x >= 1.00f)
             {
                 normal.transform.localScale = normal.transform.localScale - downaddcutSize;
                 over.transform.localScale = over.transform.localScale - downaddcutSize;
-                changeGauge.value += 0.1f;
+                //changeGauge.value += 0.1f;
             }
+        }
+
+        if(changeSize)
+        {
+            changeGauge.value -= normal.transform.localScale.x + 0.01f;
+        }
+        if (!changeSize)
+        {
+            changeGauge.value += normal.transform.localScale.x + 0.01f;
+        }
+
+        if (changeGauge.value == 0)
+        {
+            normal.transform.localScale = new Vector3(1, 1, 1);
+            over.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+            changeSize = false;
         }
 
         if (Input.GetKeyDown(KeyCode.R)|| Input.GetKeyDown("joystick button 7"))

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 public class Sphere : MonoBehaviour
 {
     public float speed = 1.0f;
@@ -15,6 +15,7 @@ public class Sphere : MonoBehaviour
     Vector3 downaddcutSize;
     public bool hitflag;
     public bool changeSize;
+    public Slider changeGauge;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class Sphere : MonoBehaviour
         downaddcutSize = new Vector3(0.1f, 0.1f, 0);
         changeSize = false;
         GetItem = false;
+        changeGauge.value = 1;
     }
 
     // Update is called once per frame
@@ -34,18 +36,26 @@ public class Sphere : MonoBehaviour
         if (Input.GetKey(KeyCode.Z)||
             Input.GetKey("joystick button 0"))
         {
-            if (normal.transform.localScale.x <= 2.6f)
+            if (changeGauge.value > 0)
             {
-                normal.transform.localScale = normal.transform.localScale + addcutSize;
-                over.transform.localScale = over.transform.localScale + addcutSize;
+                if (normal.transform.localScale.x <= 2.6f)
+                {
+                    normal.transform.localScale = normal.transform.localScale + addcutSize;
+                    over.transform.localScale = over.transform.localScale + addcutSize;
+                    changeGauge.value -= 0.01f;
+                }
             }
         }
         if(Input.GetKeyDown(KeyCode.C)&&!changeSize)
         {
-            if (normal.transform.localScale.x <= 2.6f)
+            if (changeGauge.value > 0)
             {
-                normal.transform.localScale = normal.transform.localScale + downaddcutSize;
-                over.transform.localScale = over.transform.localScale + downaddcutSize;
+                if (normal.transform.localScale.x <= 2.6f)
+                {
+                    normal.transform.localScale = normal.transform.localScale + downaddcutSize;
+                    over.transform.localScale = over.transform.localScale + downaddcutSize;
+                    changeGauge.value -= 0.1f;
+                }
             }
         }
         if(Input.GetKey(KeyCode.X)||
@@ -55,6 +65,7 @@ public class Sphere : MonoBehaviour
             {
                 normal.transform.localScale = normal.transform.localScale - addcutSize;
                 over.transform.localScale = over.transform.localScale - addcutSize;
+                changeGauge.value += 0.01f;
             }
         }
         if (Input.GetKeyDown(KeyCode.V)&&!changeSize)
@@ -63,6 +74,7 @@ public class Sphere : MonoBehaviour
             {
                 normal.transform.localScale = normal.transform.localScale - downaddcutSize;
                 over.transform.localScale = over.transform.localScale - downaddcutSize;
+                changeGauge.value += 0.1f;
             }
         }
 

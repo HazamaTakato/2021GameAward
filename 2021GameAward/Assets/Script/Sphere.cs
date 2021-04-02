@@ -63,7 +63,7 @@ public class Sphere : MonoBehaviour
         if(Input.GetKey(KeyCode.X)||
            Input.GetKey("joystick button 1"))
         {
-            changeSize = false;
+            //changeSize = false;
             if (normal.transform.localScale.x >= 1.00f)
             {
                 normal.transform.localScale = normal.transform.localScale - addcutSize;
@@ -73,7 +73,7 @@ public class Sphere : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
-            changeSize = false;
+            //changeSize = false;
             if (normal.transform.localScale.x >= 1.00f)
             {
                 normal.transform.localScale = normal.transform.localScale - downaddcutSize;

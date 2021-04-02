@@ -24,7 +24,7 @@ public class Sphere : MonoBehaviour
         downaddcutSize = new Vector3(0.1f, 0.1f, 0);
         changeSize = false;
         GetItem = false;
-        changeGauge.value = 100;
+        changeGauge.value = 1000;
     }
 
     // Update is called once per frame

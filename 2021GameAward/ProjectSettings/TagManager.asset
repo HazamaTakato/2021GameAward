@@ -8,6 +8,7 @@ TagManager:
   - DeadItem
   - Goal
   - block
+  - lever
   layers:
   - Default
   - TransparentFX

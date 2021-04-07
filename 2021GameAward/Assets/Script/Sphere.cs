@@ -98,6 +98,11 @@ public class Sphere : MonoBehaviour
             changeSize = false;
         }
 
+        if (normal.transform.localScale.x == 1.0f)
+        {
+            changeSize = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.R)|| Input.GetKeyDown("joystick button 7"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

@@ -15,6 +15,8 @@ public class SphereStage2 : MonoBehaviour
     Vector3 downaddcutSize;
     public bool hitflag;
     public bool changeSize;
+    public GameObject lever;
+    public GameObject leverblock;
     // Start is called before the first frame update
     void Start()
     {
@@ -111,6 +113,10 @@ public class SphereStage2 : MonoBehaviour
         if (other.tag == "Goal" && GetItem)
         {
             SceneManager.LoadScene("EndingScene");
+        }
+        if(other.tag=="lever")
+        {
+            leverblock.SetActive(false);
         }
     }
 }

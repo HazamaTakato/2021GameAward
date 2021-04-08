@@ -117,6 +117,7 @@ public class SphereStage2 : MonoBehaviour
         if(other.tag=="lever")
         {
             leverblock.SetActive(false);
+            lever.transform.localRotation = new Quaternion(0,0,3.5f,1);
         }
     }
 }

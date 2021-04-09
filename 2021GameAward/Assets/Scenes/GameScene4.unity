@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 79973358}
   m_Layer: 0
   m_Name: Valve
-  m_TagString: block
+  m_TagString: valve
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1251,7 +1251,7 @@ GameObject:
   - component: {fileID: 629027371}
   m_Layer: 0
   m_Name: Valve (2)
-  m_TagString: block
+  m_TagString: valve
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1799,7 +1799,7 @@ GameObject:
   - component: {fileID: 878667168}
   m_Layer: 0
   m_Name: Valve (1)
-  m_TagString: block
+  m_TagString: valve
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3252,6 +3252,20 @@ MonoBehaviour:
   normal: {fileID: 1541441240}
   hitflag: 0
   changeSize: 0
+  fallblock: {fileID: 0}
+  lever: {fileID: 0}
+  leverblock: {fileID: 0}
+  leverblock2: {fileID: 0}
+  valve: {fileID: 0}
+  valveblock: {fileID: 0}
+  valve2: {fileID: 0}
+  valveblock2: {fileID: 0}
+  valve3: {fileID: 0}
+  valveblock3: {fileID: 0}
+  getValve: 0
+  getValve2: 0
+  getValve3: 0
+  leverON: 0
 --- !u!114 &1339319215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3273,6 +3287,8 @@ MonoBehaviour:
   hitflag: 0
   changeSize: 0
   changeGauge: {fileID: 0}
+  Gauge: 0
+  block2: []
 --- !u!4 &1339319216
 Transform:
   m_ObjectHideFlags: 0
@@ -3676,7 +3692,7 @@ GameObject:
   - component: {fileID: 1509463370}
   m_Layer: 0
   m_Name: Valve (3)
-  m_TagString: block
+  m_TagString: valve
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

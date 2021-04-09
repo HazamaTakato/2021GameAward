@@ -16,6 +16,12 @@ public class Sphere : MonoBehaviour
     public bool hitflag;
     public bool changeSize;
     public Slider changeGauge;
+    public float Gauge;
+
+    bool changeBig;
+    public GameObject[] block2;
+    PlayerItem playerItem;
+    float keyTimelimit;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,46 +31,71 @@ public class Sphere : MonoBehaviour
         changeSize = false;
         GetItem = false;
         changeGauge.value = 1000;
+        changeBig = true;
+        block2 = GameObject.FindGameObjectsWithTag("block2");
+        playerItem = GetComponent<PlayerItem>();
+        keyTimelimit = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale == 0f)
+            return;
+
         float x = Input.GetAxis("Horizontal") * speed;
         rb.AddForce(x, 0, 0);
-        this.transform.rotation = Quaternion.Euler(0, 0, 0);
-        if (Input.GetKey(KeyCode.Z)||
+        //this.transform.rotation = Quaternion.Euler(0, 0, 0);
+        if (Input.GetKey(KeyCode.Z) ||
             Input.GetKey("joystick button 0"))
         {
             changeSize = true;
-            if (changeGauge.value > 0)
+            //if (changeGauge.value > 0)
+            //{
+            if(playerItem.GetItem)
             {
-                if (normal.transform.localScale.x <= 2.6f)
+                keyTimelimit += Time.deltaTime;
+                if(keyTimelimit > 0.5f)
                 {
-                    normal.transform.localScale = normal.transform.localScale + addcutSize;
-                    over.transform.localScale = over.transform.localScale + addcutSize;
-                    //changeGauge.value -= 0.01f;
+                    playerItem.DropItem = true;
+                    keyTimelimit = 0;
                 }
             }
+            else if(normal.transform.localScale.x <= 2.6f && changeBig)
+            {
+                normal.transform.localScale = normal.transform.localScale + addcutSize;
+                over.transform.localScale = over.transform.localScale + addcutSize;
+                //changeGauge.value -= 0.01f;
+            }
+            //}
         }
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             changeSize = true;
-            if (changeGauge.value > 0)
+            //if (changeGauge.value > 0)
+            //{
+            if (normal.transform.localScale.x <= 2.6f)
             {
-                if (normal.transform.localScale.x <= 2.6f)
-                {
-                    normal.transform.localScale = normal.transform.localScale + downaddcutSize;
-                    over.transform.localScale = over.transform.localScale + downaddcutSize;
-                    //changeGauge.value -= 0.1f;
-                }
+                normal.transform.localScale = normal.transform.localScale + downaddcutSize;
+                over.transform.localScale = over.transform.localScale + downaddcutSize;
+                //changeGauge.value -= 0.1f;
             }
+            //}
         }
-        if(Input.GetKey(KeyCode.X)||
+        if (Input.GetKey(KeyCode.X) ||
            Input.GetKey("joystick button 1"))
         {
             //changeSize = false;
-            if (normal.transform.localScale.x >= 1.00f)
+            if (playerItem.GetItem)
+            {
+                keyTimelimit += Time.deltaTime;
+                if (keyTimelimit > 0.5f)
+                {
+                    playerItem.DropItem = true;
+                    keyTimelimit = 0;
+                }
+            }
+            else if (normal.transform.localScale.x >= 1.00f)
             {
                 normal.transform.localScale = normal.transform.localScale - addcutSize;
                 over.transform.localScale = over.transform.localScale - addcutSize;
@@ -82,33 +113,45 @@ public class Sphere : MonoBehaviour
             }
         }
 
-        if(changeSize)
+        if (Input.GetKeyUp(KeyCode.Z) ||
+            Input.GetKeyUp("joystick button 0")||
+            Input.GetKeyUp(KeyCode.X) ||
+            Input.GetKeyUp("joystick button 1"))
         {
-            changeGauge.value -= normal.transform.localScale.x + 0.01f;
-        }
-        if (!changeSize)
-        {
-            changeGauge.value += normal.transform.localScale.x + 0.01f;
+            keyTimelimit = 0;
         }
 
-        if (changeGauge.value == 0)
-        {
-            normal.transform.localScale = new Vector3(1, 1, 1);
-            over.transform.localScale = new Vector3(1.1f, 1.1f, 1);
-            changeSize = false;
-        }
+        //ゲージで大きさの指標をしている処理
+        Gauge = normal.transform.localScale.x - 1.0f;
+        changeGauge.value = (Gauge * 1000) / 1.6f;
+
+        //if(changeSize)
+        //{
+        //    changeGauge.value -= normal.transform.localScale.x + 0.01f;
+        //}
+        //if (!changeSize)
+        //{
+        //    changeGauge.value += normal.transform.localScale.x + 0.01f;
+        //}
+
+        //if (changeGauge.value == 0)
+        //{
+        //    normal.transform.localScale = new Vector3(1, 1, 1);
+        //    over.transform.localScale = new Vector3(1.1f, 1.1f, 1);
+        //    changeSize = false;
+        //}
 
         if (normal.transform.localScale.x == 1.0f)
         {
             changeSize = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.R)|| Input.GetKeyDown("joystick button 7"))
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown("joystick button 7"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             GetItem = true;
         }
@@ -137,6 +180,10 @@ public class Sphere : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "block2")
+        {
+            changeBig = false;
+        }
         //if (other.tag == "Item"&&hitflag)
         //{
         //    GetItem = true;
@@ -145,9 +192,33 @@ public class Sphere : MonoBehaviour
         //{
         //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         //}
-        if(other.tag=="Goal"&&GetItem)
+        if (other.tag == "Goal" && GetItem)
         {
             SceneManager.LoadScene("GameScene2");
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        foreach (GameObject go in block2)
+        {
+            if (other.gameObject == go)
+            {
+                //Debug.Log("当たったよ");
+                changeBig = false;
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        foreach (GameObject go in block2)
+        {
+            if (other.gameObject == go)
+            {
+                //Debug.Log("当たってないよ");
+                changeBig = true;
+            }
         }
     }
 }

@@ -9,6 +9,10 @@ TagManager:
   - Goal
   - block
   - lever
+  - block2
+  - valve
+  - valve2
+  - valve3
   layers:
   - Default
   - TransparentFX

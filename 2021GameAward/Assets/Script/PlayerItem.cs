@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerItem : MonoBehaviour
 {
@@ -64,6 +65,13 @@ public class PlayerItem : MonoBehaviour
                 NormalPlayer.transform.localScale = MyScale;
                 OverPlayer.transform.localScale = new Vector3(MyScale.x + 0.1f, MyScale.y + 0.1f, MyScale.z);
             }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Goal" && GetItem)
+        {
+            SceneManager.LoadScene("GameScene2");
         }
     }
 }

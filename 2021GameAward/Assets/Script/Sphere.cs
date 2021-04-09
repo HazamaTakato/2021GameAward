@@ -40,6 +40,9 @@ public class Sphere : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale == 0f)
+            return;
+
         float x = Input.GetAxis("Horizontal") * speed;
         rb.AddForce(x, 0, 0);
         //this.transform.rotation = Quaternion.Euler(0, 0, 0);

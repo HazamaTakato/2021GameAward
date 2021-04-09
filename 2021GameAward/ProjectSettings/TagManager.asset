@@ -9,6 +9,7 @@ TagManager:
   - Goal
   - block
   - lever
+  - block2
   layers:
   - Default
   - TransparentFX

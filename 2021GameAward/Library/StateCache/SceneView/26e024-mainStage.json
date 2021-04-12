@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":5.0864763259887699,"y":9.72105598449707,"z":-1.2374999523162842},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":18.09476661682129,"orthographic":true}
-=======
-﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":-13.09000015258789,"y":0.0,"z":0.10000000894069672},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":0.9246622323989868,"orthographic":true}
->>>>>>> parent of f77df4f... テクスチャ修正とBGMとSEの実装

@@ -1128,7 +1128,10 @@ GameObject:
   - component: {fileID: 715814231}
   - component: {fileID: 715814232}
   - component: {fileID: 715814233}
+<<<<<<< HEAD
   - component: {fileID: 715814234}
+=======
+>>>>>>> parent of f77df4f... テクスチャ修正とBGMとSEの実装
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1192,6 +1195,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 56
   m_CollisionDetection: 0
+<<<<<<< HEAD
 --- !u!114 &715814234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1207,6 +1211,8 @@ MonoBehaviour:
   MyScale: {x: 0, y: 0, z: 0}
   GetItem: 0
   DropItem: 0
+=======
+>>>>>>> parent of f77df4f... テクスチャ修正とBGMとSEの実装
 --- !u!1 &782244385
 GameObject:
   m_ObjectHideFlags: 0
